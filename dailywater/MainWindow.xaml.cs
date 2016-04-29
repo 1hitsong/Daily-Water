@@ -20,45 +20,42 @@ namespace dailywater
     /// </summary>
     public partial class MainWindow : Window
     {
-        System.Windows.Shapes.Rectangle waterGraphBorder;
         System.Windows.Shapes.Rectangle waterGraph;
 
         public MainWindow()
         {
             InitializeComponent();
-
-            
-            waterGraphBorder = new System.Windows.Shapes.Rectangle();
-            waterGraphBorder.Stroke = new SolidColorBrush(Colors.Gray);
-            waterGraphBorder.Fill = new SolidColorBrush(Colors.White);
-            waterGraphBorder.Width = 120;
-            waterGraphBorder.Height = 240;
-            Canvas.SetLeft(waterGraphBorder, 0);
-            Canvas.SetTop(waterGraphBorder, 0);
-            canvas.Children.Add(waterGraphBorder);
-
-            
+         
             waterGraph = new System.Windows.Shapes.Rectangle();
             waterGraph.Fill = new SolidColorBrush(Colors.CornflowerBlue);
-            waterGraph.Width = 120;
+            waterGraph.Width = 200;
             waterGraph.Height = 0;
             Canvas.SetLeft(waterGraph, 0);
 
-            Canvas.SetTop(waterGraph, waterGraphBorder.Height - waterGraph.Height);
+            Canvas.SetTop(waterGraph, canvas.Height - waterGraph.Height);
             canvas.Children.Add(waterGraph);
 
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (waterGraph.Height < waterGraphBorder.Height)
+            if (e.ChangedButton == MouseButton.Left)
+                this.DragMove();
+        }
+
+        private void Button_Drink(object sender, RoutedEventArgs e)
+        {
+            if (waterGraph.Height < canvas.Height)
             {
-                waterGraph.Height += 40;
-                Canvas.SetTop(waterGraph, waterGraphBorder.Height - waterGraph.Height);
+                waterGraph.Height += 20;
+                Canvas.SetTop(waterGraph,canvas.Height - waterGraph.Height);
             }
 
-            if (waterGraph.Height == waterGraphBorder.Height)
+            if (waterGraph.Height >= canvas.Height)
             {
+                waterGraph.Height = canvas.Height;
+                Canvas.SetTop(waterGraph, 0);
+
                 TextBlock textBlock = new TextBlock();
                 textBlock.Text = "You Did It!";
                 textBlock.Width = 120;
@@ -69,8 +66,11 @@ namespace dailywater
                 Canvas.SetTop(textBlock, 0);
                 canvas.Children.Add(textBlock);
             }
-            
-            
+        }
+
+        private void Button_Close(object sender, RoutedEventArgs e)
+        { 
+            this.Close();
         }
     }
 }
