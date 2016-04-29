@@ -25,15 +25,6 @@ namespace dailywater
         public MainWindow()
         {
             InitializeComponent();
-         
-            waterGraph = new System.Windows.Shapes.Rectangle();
-            waterGraph.Fill = new SolidColorBrush(Colors.CornflowerBlue);
-            waterGraph.Width = 200;
-            waterGraph.Height = 0;
-            Canvas.SetLeft(waterGraph, 0);
-
-            Canvas.SetTop(waterGraph, canvas.Height - waterGraph.Height);
-            canvas.Children.Add(waterGraph);
 
         }
 
@@ -45,27 +36,10 @@ namespace dailywater
 
         private void Button_Drink(object sender, RoutedEventArgs e)
         {
-            if (waterGraph.Height < canvas.Height)
-            {
-                waterGraph.Height += 20;
-                Canvas.SetTop(waterGraph,canvas.Height - waterGraph.Height);
-            }
 
-            if (waterGraph.Height >= canvas.Height)
-            {
-                waterGraph.Height = canvas.Height;
-                Canvas.SetTop(waterGraph, 0);
-
-                TextBlock textBlock = new TextBlock();
-                textBlock.Text = "You Did It!";
-                textBlock.Width = 120;
-                textBlock.Height = 240;
-                textBlock.TextAlignment = TextAlignment.Center;
-                textBlock.Foreground = new SolidColorBrush(Colors.Black);
-                Canvas.SetLeft(textBlock, 0);
-                Canvas.SetTop(textBlock, 0);
-                canvas.Children.Add(textBlock);
-            }
+            Thickness m = completionGraph.Margin;
+            m.Top -= 10;
+            completionGraph.Margin = m;
         }
 
         private void Button_Close(object sender, RoutedEventArgs e)

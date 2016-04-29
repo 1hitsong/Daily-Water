@@ -6,14 +6,26 @@
         MouseDown="Window_MouseDown"
         Background="Transparent"
         Title="Daily Water" Height="350" Width="200">
-    <Grid>
-        <Border Name="mask" Height="350" Width="200" Background="White" CornerRadius="20"/>
-        <Canvas ClipToBounds="True" Name="canvas" HorizontalAlignment="Left" Height="350" VerticalAlignment="Top" Width="200" Margin="0,0,0,0">
-            <Canvas.OpacityMask>
-                <VisualBrush Visual="{Binding ElementName=mask}" />
-            </Canvas.OpacityMask>
-        </Canvas>
-        <Button Content="Drink 20oz" HorizontalAlignment="Center" Margin="0,-40,0,0" VerticalAlignment="Bottom" Width="75" Click="Button_Drink"/>
-        <Button BorderThickness="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Content="X" Width="20" Height="20" Margin="168,10,0,318" HorizontalAlignment="Left" Click="Button_Close" />
-    </Grid>
+    <Border
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center"
+        BorderBrush="Yellow"
+        BorderThickness="3"
+        CornerRadius="10"
+        Padding="2"
+    >
+        <Grid>
+            <Border Name="mask" Background="White" CornerRadius="10"/>
+            <StackPanel>
+                <!-- Use a VisualBrush of 'mask' as the opacity mask -->
+                <StackPanel.OpacityMask>
+                    <VisualBrush Visual="{Binding ElementName=mask}"/>
+                </StackPanel.OpacityMask>
+
+                <Button Content="Drink 20oz" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Bottom" Width="75" Click="Button_Drink"/>
+                <Button BorderThickness="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Content="X" Width="20" Height="20" Margin="168,10,0,318" HorizontalAlignment="Left" Click="Button_Close" />
+                <Rectangle Name="completionGraph" Fill="LightBlue" HorizontalAlignment="Center" Height="300" Margin="0,-30,0,0" VerticalAlignment="Top" Width="213"/>
+            </StackPanel>
+        </Grid>
+    </Border>
 </Window>
