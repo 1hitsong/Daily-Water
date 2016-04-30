@@ -4,28 +4,26 @@
         WindowStyle="None"
         AllowsTransparency="True"
         MouseDown="Window_MouseDown"
-        Background="Transparent"
+        Background="White"
+        BorderBrush="LightGray" BorderThickness="1"
         Title="Daily Water" Height="350" Width="200">
     <Border
-        HorizontalAlignment="Center"
-        VerticalAlignment="Center"
-        BorderBrush="Yellow"
-        BorderThickness="3"
-        CornerRadius="10"
-        Padding="2"
+        HorizontalAlignment="Left"
+        VerticalAlignment="Top" Padding="0"
+        
     >
-        <Grid>
-            <Border Name="mask" Background="White" CornerRadius="10"/>
-            <StackPanel>
-                <!-- Use a VisualBrush of 'mask' as the opacity mask -->
-                <StackPanel.OpacityMask>
-                    <VisualBrush Visual="{Binding ElementName=mask}"/>
-                </StackPanel.OpacityMask>
-
-                <Button Content="Drink 20oz" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Bottom" Width="75" Click="Button_Drink"/>
-                <Button BorderThickness="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Content="X" Width="20" Height="20" Margin="168,10,0,318" HorizontalAlignment="Left" Click="Button_Close" />
-                <Rectangle Name="completionGraph" Fill="LightBlue" HorizontalAlignment="Center" Height="300" Margin="0,-30,0,0" VerticalAlignment="Top" Width="213"/>
-            </StackPanel>
-        </Grid>
+        <Canvas Name="page">
+            <Button Panel.ZIndex="5" BorderThickness="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Content="X" Width="20" Height="20" HorizontalAlignment="Left" Click="Button_Close" Canvas.Left="180" Canvas.Top="4" FontFamily="Segoe UI Light" />
+            <Rectangle Panel.ZIndex="1" Name="completionGraph" HorizontalAlignment="Left" Height="370" VerticalAlignment="Top" Width="200" Canvas.Left="0" Canvas.Top="317">
+                <Rectangle.Fill>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFC8FCFF" Offset="0.187"/>
+                        <GradientStop Color="#FF66B6B9" Offset="1"/>
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+            <TextBlock TextAlignment="Center" Panel.ZIndex="5" MouseDown="DrinkButton_MouseDown" Text="Drink 20oz" Canvas.Top="315" FontSize="18" Background="White" Foreground="#FF363636" FontFamily="Segoe UI Light" HorizontalAlignment="Center" VerticalAlignment="Center" Height="34" Width="202" Margin="0" Padding="0,3,0,0" Canvas.Left="-1"/>
+            <Border Panel.ZIndex="6" BorderBrush="LightGray" BorderThickness="1" Height="34" Canvas.Left="-1" Canvas.Top="315" Width="200"/>
+        </Canvas>
     </Border>
 </Window>

@@ -20,12 +20,26 @@ namespace dailywater
     /// </summary>
     public partial class MainWindow : Window
     {
-        System.Windows.Shapes.Rectangle waterGraph;
+        int goalOZ, amountDrunk, drinkOZ;
+        double completionPercent, graphStep, graphTop;
 
         public MainWindow()
         {
             InitializeComponent();
 
+            setDefaults();
+
+        }
+
+        private void setDefaults()
+        {
+            goalOZ = 120;
+            drinkOZ = 20;
+            amountDrunk = 0;
+            completionPercent = 0;
+            graphTop = 317;
+            double step = graphTop / (goalOZ / drinkOZ);
+            graphStep = Math.Round(step+1, 1);
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
@@ -34,17 +48,53 @@ namespace dailywater
                 this.DragMove();
         }
 
+        private void DrinkButton_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (graphTop > 0)
+            {
+                graphTop -= graphStep;
+                Canvas.SetTop(completionGraph, graphTop);
+            }
+
+            if (graphTop <= 0)
+            {
+                TextBlock x = new TextBlock();
+                x.Text = "You Did It!";
+                x.Width = 200; ;
+                x.FontSize = 50;
+                page.Children.Add(x);
+                Canvas.SetLeft(x, 20);
+                Canvas.SetTop(x, 20);
+                Canvas.SetZIndex(x, 5);
+            }
+        }
+
         private void Button_Drink(object sender, RoutedEventArgs e)
         {
+            if (graphTop > 0)
+            {
+                graphTop -= graphStep;
+                Canvas.SetTop(completionGraph, graphTop);
+            }
 
-            Thickness m = completionGraph.Margin;
-            m.Top -= 10;
-            completionGraph.Margin = m;
+            if (graphTop <=0)
+            {
+                TextBlock x = new TextBlock();
+                x.Text = "You Did It!";
+                x.Width = 200;;
+                x.FontSize = 50;
+                page.Children.Add(x);
+                Canvas.SetLeft(x, 20);
+                Canvas.SetTop(x, 20);
+                Canvas.SetZIndex(x, 5);
+            }
+
         }
 
         private void Button_Close(object sender, RoutedEventArgs e)
         { 
             this.Close();
         }
+
     }
 }
