@@ -66,6 +66,7 @@ namespace dailywater
                 Canvas.SetLeft(x, 20);
                 Canvas.SetTop(x, 20);
                 Canvas.SetZIndex(x, 5);
+                success.Opacity = 1;
             }
         }
 
